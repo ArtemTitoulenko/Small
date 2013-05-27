@@ -9,12 +9,51 @@
 #import "MasterViewController.h"
 
 #import "DetailViewController.h"
+#import <Foundation/NSJSONSerialization.h> 
+
+@implementation NSDictionary(Utilities)
+-(void)listKeys {
+  for (id sub_key in self) {
+    NSLog(@"key: %@", sub_key);
+  }
+}
+
+-(void)listKeysForKey:(NSString *)key {
+  [[self objectForKey:key] listKeys];
+}
+
+-(void)listKeysForPath:(NSString *)path {
+  NSMutableArray * keys = [path componentsSeparatedByString:@"."];
+  
+  NSLog(@"num keys: %i", [keys count]);
+  
+  id parent = self;
+  while ([keys count] > 0) {
+    parent = [parent objectForKey:[keys objectAtIndex:0]];
+    [keys removeObjectAtIndex:0];
+  }
+  
+  [parent listKeys];
+}
+
+-(id)objectForPath:(NSString *)path {
+  NSMutableArray * keys = [path componentsSeparatedByString:@"."];
+  
+  id parent = self;
+  while ([keys count] > 1) {
+    parent = [parent objectForKey:[keys objectAtIndex:0]];
+    [keys removeObjectAtIndex:0];
+  }
+  
+  return [parent objectForKey:[keys objectAtIndex:0]];
+}
+@end
 
 @interface MasterViewController () {
-  NSMutableArray *_objects;
   NSURLConnection * connection;
   NSMutableData * connectionData;
   NSInteger * connectionDataLength;
+  NSMutableArray * collectionTitles;
 }
 @end
 
@@ -34,7 +73,7 @@
   UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
   self.navigationItem.rightBarButtonItem = addButton;
   
-  NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString: @"http://medium.com"]
+  NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString: @"http://medium.com/collections?apiv=1"]
                                             cachePolicy: NSURLRequestUseProtocolCachePolicy
                                         timeoutInterval: 60.0];
   
@@ -52,12 +91,12 @@
   // Dispose of any resources that can be recreated.
 }
 
-- (void)insertNewObject:(id)sender
+- (void)insertNewTitle:(NSString *)title
 {
-  if (!_objects) {
-    _objects = [[NSMutableArray alloc] init];
+  if (!collectionTitles) {
+    collectionTitles = [[NSMutableArray alloc] init];
   }
-  [_objects insertObject:[NSDate date] atIndex:0];
+  [collectionTitles insertObject:title atIndex:0];
   NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
   [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
 }
@@ -65,7 +104,6 @@
 #pragma mark - Connection
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-  [_objects removeAllObjects];
   connectionData = [[NSMutableData alloc] init];
 }
 
@@ -74,15 +112,24 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-  [_objects removeAllObjects];
-  
   NSLog(@"Connection failed! Error - %@ %@", [error localizedDescription],
         [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
   NSString * result = [[NSString alloc] initWithData:connectionData encoding:NSASCIIStringEncoding];
-  NSLog(@"Recevied all the data: %@", result);
+  result = [result substringFromIndex:16];
+  NSData * correctData = [result dataUsingEncoding:NSUTF8StringEncoding];
+
+  NSError * error = nil;
+  NSDictionary * json = [NSJSONSerialization JSONObjectWithData:correctData options:NSJSONReadingMutableLeaves error:&error];
+    
+  NSArray * collections = [json objectForPath:@"payload.value"];
+  NSLog(@"num collections: %i", [collections count]);
+  
+  for (int i = 0; i < [collections count]; i++) {
+    [self insertNewTitle:[[collections objectAtIndex: i] objectForKey:@"description"]];
+  }
 }
 
 #pragma mark - Table View
@@ -94,15 +141,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return _objects.count;
+  return collectionTitles.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
   
-  NSDate *object = _objects[indexPath.row];
-  cell.textLabel.text = [object description];
+  cell.textLabel.text = collectionTitles[indexPath.row];
   return cell;
 }
 
@@ -115,7 +161,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
   if (editingStyle == UITableViewCellEditingStyleDelete) {
-    [_objects removeObjectAtIndex:indexPath.row];
+    [collectionTitles removeObjectAtIndex:indexPath.row];
     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
   } else if (editingStyle == UITableViewCellEditingStyleInsert) {
     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
@@ -142,8 +188,8 @@
 {
   if ([[segue identifier] isEqualToString:@"showDetail"]) {
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    NSDate *object = _objects[indexPath.row];
-    [[segue destinationViewController] setDetailItem:object];
+    NSString * title = collectionTitles[indexPath.row];
+    [[segue destinationViewController] setDetailItem:title];
   }
 }
 
