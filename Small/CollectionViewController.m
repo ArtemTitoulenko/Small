@@ -43,9 +43,7 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-  
-  NSLog(@"we're on our own, buddy");
-  
+    
 	// Do any additional setup after loading the view, typically from a nib.
   self.navigationItem.leftBarButtonItem = self.editButtonItem;
   
@@ -124,7 +122,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Collection Cell" forIndexPath:indexPath];
   
   cell.textLabel.text = collectionTitles[indexPath.row];
   return cell;

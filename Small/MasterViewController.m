@@ -42,7 +42,7 @@
 }
 
 - (void)setArray:(NSArray *)newPosts {
-  if (postTitles != newPosts) {
+  if (self.postTitles != newPosts) {
     self.postTitles = newPosts;
     [self configureView];
   }
@@ -50,7 +50,12 @@
 
 - (void) configureView {
   if (self.titleBarLabelText) {
-    [self.titleBarLabel setText:self.titleBarLabelText];
+  }
+  
+  if (self.postTitles) {
+    for (int i = 0; i < [postTitles count]; i++) {
+      [self insertNewTitle:[postTitles objectAtIndex:i]];
+    }
   }
 }
 

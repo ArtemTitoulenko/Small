@@ -13,17 +13,17 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="fUi-ST-zcg" kind="relationship" relationship="rootViewController" id="EIC-Wq-pnZ"/>
+                        <segue destination="fUi-ST-zcg" kind="relationship" relationship="rootViewController" id="RIz-Dl-p6x"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-673" y="74"/>
         </scene>
-        <!--Table View Controller - Collections-->
+        <!--Collection View Controller - Collections-->
         <scene sceneID="1dY-AO-lxt">
             <objects>
-                <tableViewController title="Collections" id="fUi-ST-zcg" sceneMemberID="viewController">
+                <tableViewController title="Collections" id="fUi-ST-zcg" customClass="CollectionViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ger-jo-T7F">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -44,6 +44,10 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="12" kind="push" id="d3I-30-1aH"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -52,9 +56,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Collections" id="3pS-bY-ETp"/>
-                    <connections>
-                        <segue destination="12" kind="push" identifier="showPosts" id="lRX-LX-gSh"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Ci-1S-Q8u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -142,6 +143,9 @@
         </scene>
     </scenes>
     <classes>
+        <class className="CollectionViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CollectionViewController.h"/>
+        </class>
         <class className="DetailViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
             <relationships>
