@@ -10,4 +10,8 @@
 
 @interface MasterViewController : UITableViewController
 
+@property (strong, nonatomic) NSString * titleBarLabelText;
+@property (strong, nonatomic) NSMutableArray * postTitles;
+
+@property (weak, nonatomic) IBOutlet UILabel *titleBarLabel;
 @end

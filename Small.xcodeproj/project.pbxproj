@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC91A877175326710081FB36 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC91A876175326710081FB36 /* CollectionViewController.m */; };
 		ACD407441751CC6300D00949 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD407431751CC6300D00949 /* UIKit.framework */; };
 		ACD407461751CC6300D00949 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD407451751CC6300D00949 /* Foundation.framework */; };
 		ACD407481751CC6300D00949 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD407471751CC6300D00949 /* CoreGraphics.framework */; };
@@ -22,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AC91A875175326710081FB36 /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
+		AC91A876175326710081FB36 /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
 		ACD407401751CC6300D00949 /* Small.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Small.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACD407431751CC6300D00949 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ACD407451751CC6300D00949 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -89,6 +92,8 @@
 				ACD407521751CC6300D00949 /* AppDelegate.h */,
 				ACD407531751CC6300D00949 /* AppDelegate.m */,
 				ACD4075B1751CC6300D00949 /* MainStoryboard.storyboard */,
+				AC91A875175326710081FB36 /* CollectionViewController.h */,
+				AC91A876175326710081FB36 /* CollectionViewController.m */,
 				ACD4075E1751CC6300D00949 /* MasterViewController.h */,
 				ACD4075F1751CC6300D00949 /* MasterViewController.m */,
 				ACD407611751CC6300D00949 /* DetailViewController.h */,
@@ -182,6 +187,7 @@
 				ACD407541751CC6300D00949 /* AppDelegate.m in Sources */,
 				ACD407601751CC6300D00949 /* MasterViewController.m in Sources */,
 				ACD407631751CC6300D00949 /* DetailViewController.m in Sources */,
+				AC91A877175326710081FB36 /* CollectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +310,7 @@
 				ACD407681751CC6300D00949 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
