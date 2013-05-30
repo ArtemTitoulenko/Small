@@ -34,25 +34,24 @@
 
 #pragma mark - Segue Data
 
-- (void)setTitle:(NSString *)title {
+- (void)setTitle:(id)title {
   if (titleBarLabelText != title) {
     titleBarLabelText = title;
     [self configureView];
   }
 }
 
-- (void)setArray:(NSArray *)newPosts {
+- (void)setArray:(id)newPosts {
   if (self.postTitles != newPosts) {
+    NSLog(@"got %i new posts!", [newPosts count]);
     self.postTitles = newPosts;
     [self configureView];
   }
 }
 
 - (void) configureView {
-  if (self.titleBarLabelText) {
-  }
-  
   if (self.postTitles) {
+    NSLog(@"configuring postTitles");
     for (int i = 0; i < [postTitles count]; i++) {
       [self insertNewTitle:[postTitles objectAtIndex:i]];
     }
@@ -95,7 +94,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return postTitles.count;
+  return [postTitles count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -108,7 +107,6 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  // Return NO if you do not want the specified item to be editable.
   return NO;
 }
 
@@ -121,22 +119,6 @@
     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
   }
 }
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
