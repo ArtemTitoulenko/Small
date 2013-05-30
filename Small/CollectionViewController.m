@@ -9,21 +9,6 @@
 #import "CollectionViewController.h"
 #import "MasterViewController.h"
 
-
-@implementation NSDictionary(Utilities)
--(id)objectForPath:(NSString *)path {
-  NSMutableArray * keys = [path componentsSeparatedByString:@"."];
-  
-  id parent = self;
-  while ([keys count] > 1) {
-    parent = [parent objectForKey:[keys objectAtIndex:0]];
-    [keys removeObjectAtIndex:0];
-  }
-  
-  return [parent objectForKey:[keys objectAtIndex:0]];
-}
-@end
-
 @interface CollectionViewController () {
   NSURLConnection * connection;
   NSMutableData * connectionData;
@@ -76,36 +61,6 @@
   [collectionTitles insertObject:title atIndex:0];
   NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
   [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-}
-
-#pragma mark - Connection
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-  connectionData = [[NSMutableData alloc] init];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-  [connectionData appendData:data];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-  NSLog(@"Connection failed! Error - %@ %@", [error localizedDescription],
-        [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
-}
-
-#pragma mark - Connection Finished Loading
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-  NSString * result = [[NSString alloc] initWithData:connectionData encoding:NSASCIIStringEncoding];
-  result = [result substringFromIndex:16];
-  NSData * correctData = [result dataUsingEncoding:NSUTF8StringEncoding];
-  
-  NSError * error = nil;
-  NSDictionary * json = [NSJSONSerialization JSONObjectWithData:correctData options:NSJSONReadingMutableLeaves error:&error];
-  
-  collections = [json objectForPath:@"payload.value"];
-  for (int i = 0; i < [collections count]; i++) {
-    [self insertNewTitle:[[collections objectAtIndex: i] objectForKey:@"description"]];
-  }
 }
 
 #pragma mark - Table View
@@ -166,7 +121,6 @@
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     NSString * title = collectionTitles[indexPath.row];
     [[segue destinationViewController] setTitle:title];
-    [[segue destinationViewController] setArray:collections];
   }
 }
 @end

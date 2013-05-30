@@ -10,6 +10,7 @@
 		AC91A877175326710081FB36 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC91A876175326710081FB36 /* CollectionViewController.m */; };
 		AC9E955917572515002B8975 /* Collection.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9E955817572515002B8975 /* Collection.m */; };
 		AC9E955C17572A67002B8975 /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9E955B17572A67002B8975 /* Post.m */; };
+		AC9E955F17572D57002B8975 /* MediumAPINegotiator.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9E955E17572D57002B8975 /* MediumAPINegotiator.m */; };
 		ACD407441751CC6300D00949 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD407431751CC6300D00949 /* UIKit.framework */; };
 		ACD407461751CC6300D00949 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD407451751CC6300D00949 /* Foundation.framework */; };
 		ACD407481751CC6300D00949 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD407471751CC6300D00949 /* CoreGraphics.framework */; };
@@ -31,6 +32,8 @@
 		AC9E955817572515002B8975 /* Collection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Collection.m; sourceTree = "<group>"; };
 		AC9E955A17572A67002B8975 /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
 		AC9E955B17572A67002B8975 /* Post.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Post.m; sourceTree = "<group>"; };
+		AC9E955D17572D57002B8975 /* MediumAPINegotiator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediumAPINegotiator.h; sourceTree = "<group>"; };
+		AC9E955E17572D57002B8975 /* MediumAPINegotiator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediumAPINegotiator.m; sourceTree = "<group>"; };
 		ACD407401751CC6300D00949 /* Small.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Small.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACD407431751CC6300D00949 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ACD407451751CC6300D00949 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -109,6 +112,8 @@
 				AC9E955817572515002B8975 /* Collection.m */,
 				AC9E955A17572A67002B8975 /* Post.h */,
 				AC9E955B17572A67002B8975 /* Post.m */,
+				AC9E955D17572D57002B8975 /* MediumAPINegotiator.h */,
+				AC9E955E17572D57002B8975 /* MediumAPINegotiator.m */,
 			);
 			path = Small;
 			sourceTree = "<group>";
@@ -200,6 +205,7 @@
 				AC91A877175326710081FB36 /* CollectionViewController.m in Sources */,
 				AC9E955917572515002B8975 /* Collection.m in Sources */,
 				AC9E955C17572A67002B8975 /* Post.m in Sources */,
+				AC9E955F17572D57002B8975 /* MediumAPINegotiator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
