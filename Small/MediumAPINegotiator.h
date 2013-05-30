@@ -18,5 +18,6 @@
 
 @property id <MediumAPIConsumer> delegate;
 
--(NSDictionary *)collections;
+-(id)initWithDelegate:(id)delegate;
+-(void)fetchCollections;
 @end

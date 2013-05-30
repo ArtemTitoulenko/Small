@@ -9,12 +9,16 @@
 #import "CollectionViewController.h"
 #import "MasterViewController.h"
 
-@interface CollectionViewController () {
+#import "MediumAPINegotiator.h"
+
+@interface CollectionViewController () <MediumAPIConsumer> {
   NSURLConnection * connection;
   NSMutableData * connectionData;
   NSInteger * connectionDataLength;
   NSMutableArray * collections;
   NSMutableArray * collectionTitles;
+  
+  id API;
 }
 @end
 
@@ -35,16 +39,8 @@
   UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
   self.navigationItem.rightBarButtonItem = addButton;
   
-  NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString: @"http://medium.com/collections?apiv=1"]
-                                            cachePolicy: NSURLRequestUseProtocolCachePolicy
-                                        timeoutInterval: 60.0];
-  
-  connectionData = [[NSMutableData alloc] init];
-  connection = [NSURLConnection connectionWithRequest:request delegate:self];
-  
-  if (!connection) {
-    NSLog(@"Could not create the connection. Check your network settings");
-  }
+  API = [[MediumAPINegotiator alloc] initWithDelegate:self];
+  [API fetchCollections];
 }
 
 - (void)didReceiveMemoryWarning
@@ -61,6 +57,12 @@
   [collectionTitles insertObject:title atIndex:0];
   NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
   [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+}
+
+#pragma mark - API Call
+
+-(void)receivedCollections:(NSDictionary *)collections {
+  NSLog(@"all the collections");
 }
 
 #pragma mark - Table View

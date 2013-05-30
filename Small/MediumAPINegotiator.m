@@ -37,7 +37,12 @@
   return self;
 }
 
--(NSDictionary *)collections {
+-(id)initWithDelegate:(id)new_delegate {
+  [self setDelegate:new_delegate];
+  return [self init];
+}
+
+-(void)fetchCollections {  
   NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString: @"http://medium.com/collections?apiv=1"]
                                             cachePolicy: NSURLRequestUseProtocolCachePolicy
                                         timeoutInterval: 60.0];
@@ -78,7 +83,7 @@
   for (int i = 0; i < [collections count]; i++) {
     // fill it up
   }
-  
+    
   if ([delegate respondsToSelector:@selector(receivedCollections:)]) {
     [delegate receivedCollections:collections];
   }
